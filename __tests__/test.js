@@ -30,3 +30,10 @@ test('detect ICICI credit card sms', () => {
     expect(isIciciCreditCardSms(smses.icici[2])).toBe(true)
     expect(isIciciCreditCardSms('random string INR 100')).toBe(false)
 })
+
+test('parse the expense amount from ICICI credit card sms', () => {
+    const parsedSms = parse(smses.icici[0])
+
+    expect(parsedSms.transactionAmount).toBe(4999)
+    expect(parsedSms.date).toBe(1447093800000)
+})
