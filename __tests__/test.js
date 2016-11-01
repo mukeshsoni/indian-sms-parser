@@ -1,6 +1,15 @@
-import parser, { parse } from '../index.js'
+import parser, { 
+    parse,
+    isIciciCreditCardSms, 
+} from '../index.js'
 
-const sms1 = "Tranx of INR 4,999.00 using Credit Card 4xxx1121 is made at AMAZON SELLER on 10-NOV-15. Avbl Cr lmt:INR 10,123.21, Total Cr lmt: INR 50,200.00. To register for our festive offer, please give a missed call on 07878730000. Please ignore if already registered. For details, visit www.icicibank.com"
+const smses = {
+    icici: [
+        "Tranx of INR 4,999.00 using Credit Card 4xxx1121 is made at AMAZON SELLER on 10-NOV-15. Avbl Cr lmt:INR 10,123.21, Total Cr lmt: INR 50,200.00. To register for our festive offer, please give a missed call on 07878730000. Please ignore if already registered. For details, visit www.icicibank.com",
+        "Tranx of INR 999.00 using Credit Card 4xxx1121 is made at AMAZON SELLER on 10-NOV-15. Avbl Cr lmt:INR 10,123.21, Total Cr lmt: INR 50,200.00. To register for our festive offer, please give a missed call on 07878730000. Please ignore if already registered. For details, visit www.icicibank.com",
+    ]
+}
+
 
 const expectedParsedOutput1 = {
     bankName: "ICICI",
@@ -14,8 +23,8 @@ const expectedParsedOutput1 = {
     date: 1021001012, // Unix timestamp of the date
 }
 
-test('parse ICICI bank sms', () => {
-    const parsedSms = parse(sms1)
-
-    expect(parsedSms.transactionAmount).toBe(4999)
+test('detect ICICI credit card sms', () => {
+    expect(isIciciCreditCardSms(smses.icici[0])).toBe(true)
+    expect(isIciciCreditCardSms(smses.icici[1])).toBe(true)
+    expect(isIciciCreditCardSms('random string INR 100')).toBe(false)
 })
