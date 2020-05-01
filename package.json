@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/mukeshsoni/indian-sms-parser#readme",
   "devDependencies": {
-    "babel-jest": "^16.0.0",
+    "babel-jest": "^20.0.3",
     "babel-preset-es2015": "^6.24.1",
     "flow-bin": "^0.34.0",
     "jest-cli": "^16.0.2"
